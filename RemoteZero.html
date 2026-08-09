@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="RemoteZero is a label-free reinforcement learning framework for geospatial reasoning and self-evolving Earth Observation models.">
+  <meta name="keywords" content="RemoteZero, remote sensing, geospatial reasoning, label-free learning, reinforcement learning, self-evolution">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RemoteZero</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/logo.jpg">
+
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<nav class="navbar is-white" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="#top">RemoteZero</a>
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-end">
+      <a class="navbar-item" href="#abstract">Abstract</a>
+      <a class="navbar-item" href="#architecture">Architecture</a>
+      <a class="navbar-item" href="#results">Results</a>
+      <a class="navbar-item" href="#analysis">Analysis</a>
+      <a class="navbar-item" href="#BibTeX">BibTeX</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero" id="top">
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+      <h1 class="title is-1 publication-title">RemoteZero: Geospatial Reasoning with Zero Labels</h1>
+      <p class="subtitle is-4 venue">arXiv 2026</p>
+
+      <div class="is-size-5 publication-authors">
+        <span class="author-block">Liang Yao<sup>1</sup>,</span>
+        <span class="author-block">Fan Liu<sup>1,&dagger;</sup>,</span>
+        <span class="author-block">Shengxiang Xu<sup>2</sup>,</span>
+        <span class="author-block">Chuanyi Zhang<sup>1</sup>,</span>
+        <span class="author-block">Rui Min<sup>1</sup>,</span>
+        <span class="author-block">Shimin Di<sup>2</sup>,</span>
+        <span class="author-block">Yuhui Zheng<sup>1</sup></span>
+      </div>
+
+      <div class="is-size-5 publication-authors affiliations">
+        <span class="author-block"><sup>1</sup>Hohai University</span>
+        <span class="author-block"><sup>2</sup>Southeast University</span>
+      </div>
+
+      <p class="publication-note">&dagger; Corresponding author.</p>
+
+      <div class="publication-links">
+        <span class="link-block">
+          <a href="./static/remotezero_paper.pdf"
+             class="external-link button is-normal is-rounded is-dark">
+            <span class="icon"><i class="fas fa-file-pdf"></i></span>
+            <span>Paper</span>
+          </a>
+        </span>
+        <span class="link-block">
+          <a href="https://github.com/1e12Leon/RemoteZero" target="_blank" rel="noopener noreferrer"
+             class="external-link button is-normal is-rounded is-dark">
+            <span class="icon"><i class="fab fa-github"></i></span>
+            <span>Code</span>
+          </a>
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section compact-section" id="abstract">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 section-title">Abstract</h2>
+    <div class="content abstract-text">
+      <p>
+        Geospatial reasoning requires models to identify image regions that satisfy complex and often implicit user intents. 
+        Recent reinforcement learning approaches improve reasoning without manually annotated reasoning traces, but still 
+        require human-provided target labels to construct rewards, limiting  their use on large-scale unlabeled Earth observation data. 
+        We introduce RemoteZero, a label-free framework for reinforcement-based geospatial reasoning. Our key observation is twofold: MLLMs 
+        are often more reliable at evaluating candidates than generating solutions, while aerial imagery 
+        reduces interference in region-level verification. Therefore, RemoteZero converts each predicted 
+        region into a visual crop and uses its semantic consistency with the query as an intrinsic reward 
+        for GRPO optimization. This formulation removes the need for human-provided solution labels and 
+        further supports iterative self-evolution by reusing previous-round models as verifiers. Experiments 
+        show that RemoteZero outperforms strong supervised baselines, applies effectively to other Earth 
+        observation tasks, and continues to improve through self-evolution as the training data expand. We 
+        hope this direction can broadly benefit the Earth observation community.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section compact-section" id="architecture">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 section-title">📚Concept</h2>
+    <div class="content overview-text">
+      <p>
+        RemoteZero exploits a generation-verification asymmetry: multimodal models are more reliable at judging a
+        proposed region than generating precise coordinates directly. A Generate-Crop-Verify loop turns that
+        judgment into a label-free training signal.
+      </p>
+    </div>
+    <figure class="paper-figure">
+      <img src="./static/images/RemoteZero/fig1.png"
+           alt="Conceptual overview of label-free RemoteZero training and iterative self-evolution.">
+      <figcaption>Conceptual overview of RemoteZero. Left: predicted regions are cropped and semantically verified to produce label-free rewards. Top-right: comparison with SFT and conventional GRPO. Bottom-right: previous round models are reused as verifiers for iterative self-evolution.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="section compact-section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 section-title">Architecture</h2>
+    <figure class="paper-figure">
+      <img src="./static/images/RemoteZero/fig2.png"
+           alt="RemoteZero reasoning, crop verification, GRPO optimization, and self-evolution architecture.">
+      <figcaption>Overview of RemoteZero. The model generates a reasoning chain and a candidate box, which is
+        converted into a padded crop and scored by a verifier for semantic consistency with the query. This score,
+        combined with an area penalty, serves as the intrinsic reward for GRPO without ground-truth coordinates.
+        RemoteZero further enables iterative self-evolution by reusing the frozen policy from the previous round as
+        the verifier for the next round.
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="section compact-section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 section-title">🏆Contributions</h2>
+    <div class="content">
+      <ul class="highlight-list">
+        <li><strong></strong>We introduce RemoteZero, a label-free reinforcement learning framework that enables policy optimization directly on unlabeled Earth observation data.</li>
+        <li><strong></strong>We explore a self-evolution paradigm for remote sensing MLLMs, offering a scalable route to continual improvement without additional supervision.</li>
+        <li><strong></strong>We show that RemoteZero outperforms strong supervised baselines, transfers across spatial prediction tasks, and benefits from increasing training data.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section compact-section" id="results">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 section-title">Main Results</h2>
+    <div class="content">
+      <p>
+        On EarthReason, RemoteZero reaches 71.29% test Acc@0.5, outperforming the supervised RemoteReasoner baseline
+        by 3.18 percentage points without using target labels for policy optimization. The framework also achieves
+        competitive results on visual grounding and referring segmentation.
+      </p>
+    </div>
+
+    <div id="main-results-carousel" class="carousel results-carousel">
+      <div class="item">
+        <div class="result-frame">
+          <img src="./static/images/RemoteZero/table1.png"
+               alt="EarthReason comparison between RemoteZero and multimodal language model baselines.">
+        </div>
+        <p class="carousel-caption">Comparison with other MLLMs on EarthReason. '*' denotes supervised by an external verifier.</p>
+      </div>
+      <div class="item">
+        <div class="result-frame">
+          <img src="./static/images/RemoteZero/table6.png"
+               alt="RemoteZero results on visual grounding and referring segmentation.">
+        </div>
+        <p class="carousel-caption">Application of RemoteZero to visual grounding and referring segmentation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- <section class="section compact-section" id="analysis">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 section-title">Ablation Studies</h2>
+    <div class="content">
+      <p>
+        The analyses isolate the effects of the area penalty, crop context, verifier choice, and visual input. A 15%
+        contextual crop provides the best balance between useful local context and spatial specificity.
+      </p>
+    </div>
+
+    <div id="ablation-carousel" class="carousel results-carousel">
+      <div class="item">
+        <div class="result-frame">
+          <img src="./static/images/RemoteZero/table2.png"
+               alt="Ablation study of RemoteZero reward functions.">
+        </div>
+        <p class="carousel-caption">Reward design: the area penalty prevents overly large predictions and improves localization accuracy.</p>
+      </div>
+      <div class="item">
+        <div class="result-frame">
+          <img src="./static/images/RemoteZero/table3.png"
+               alt="Ablation study of crop padding strategies.">
+        </div>
+        <p class="carousel-caption">Crop strategy: 15% contextual padding produces the best validation and test accuracy.</p>
+      </div>
+      <div class="item">
+        <div class="result-frame">
+          <img src="./static/images/RemoteZero/table4.png"
+               alt="Ablation study comparing verifier models.">
+        </div>
+        <p class="carousel-caption">Verifier choice: compact verifiers offer a strong balance between reward quality and training efficiency.</p>
+      </div>
+      <div class="item">
+        <div class="result-frame">
+          <img src="./static/images/RemoteZero/table5.png"
+               alt="Analysis of verifier rewards under different visual inputs.">
+        </div>
+        <p class="carousel-caption">Reward behavior: padded target crops score highly, while shifted, full-image, and target-free inputs are rejected.</p>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+<section class="section compact-section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 section-title">Qualitative Results</h2>
+    <div class="content overview-text">
+      <p>
+        The verifier rewards a compact, semantically correct helipad prediction and rejects an oversized coastal
+        region that misses the query's infrastructure requirement.
+      </p>
+    </div>
+    <figure class="paper-figure">
+      <img src="./static/images/RemoteZero/fig5.png"
+           alt="Successful and failed RemoteZero geospatial reasoning examples with verifier rewards.">
+      <figcaption>Qualitative case studies. The verifier rewards accurate localization (top) while rejecting a semantically mismatched, overly large prediction (bottom).</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="section compact-section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 section-title">Self-Evolution</h2>
+    <div class="content">
+      <p>
+        Accuracy improves consistently over six self-evolution rounds. When the accumulated training queries continue
+        to expand, both verifier quality and policy accuracy retain meaningful gains instead of plateauing early.
+      </p>
+    </div>
+
+    <div id="evolution-carousel" class="carousel results-carousel">
+      <div class="item">
+        <div class="result-frame">
+          <img src="./static/images/RemoteZero/fig3.png"
+               alt="RemoteZero accuracy across six self-evolution rounds.">
+        </div>
+        <p class="carousel-caption">Performance across six self-evolution rounds on EarthReason. Both validation and test Acc@0.5 improve consistently, while the gains diminish in later rounds, indicating saturation under a fixed training set.</p>
+      </div>
+      <div class="item">
+        <div class="result-frame">
+          <img src="./static/images/RemoteZero/fig4.png"
+               alt="RemoteZero performance under continual data scaling.">
+        </div>
+        <p class="carousel-caption">Performance under continual data scaling on EarthReason. The accumulated training queries double at each version. Both the verifier’s Verify Score and the policy’s test Acc@0.5 continue to improve, suggesting that the earlier plateau is mainly associated with limited data diversity</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section compact-section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title is-3 section-title">BibTeX</h2>
+    <pre><code>@article{yao2026remotezero,
+  title={RemoteZero: Geospatial Reasoning with Zero Human Annotations},
+  author={Yao, Liang and Liu, Fan and Xu, Shengxiang and Zhang, Chuanyi and Min, Rui and Di, Shimin and Zheng, Yuhui},
+  journal={arXiv preprint arXiv:2605.04451},
+  year={2026}
+}</code></pre>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <p>
+        This website is adapted from <a href="https://nerfies.github.io">Nerfies</a>,
+        licensed under a <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+      </p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
