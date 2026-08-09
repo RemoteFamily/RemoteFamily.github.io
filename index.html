@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="description"
-        content="Remote Family collects five Earth Observation research project pages: RemoteReasoner, RemoteShield, RemoteSAM, RemoteAgent, and RemoteCLIP.">
-  <meta name="keywords" content="RemoteFamily, RemoteReasoner, RemoteShield, RemoteSAM, RemoteAgent, RemoteCLIP, remote sensing, Earth Observation">
+        content="Remote Family collects six Earth Observation research project pages: RemoteZero, RemoteReasoner, RemoteShield, RemoteSAM, RemoteAgent, and RemoteCLIP.">
+  <meta name="keywords" content="RemoteFamily, RemoteZero, RemoteReasoner, RemoteShield, RemoteSAM, RemoteAgent, RemoteCLIP, remote sensing, Earth Observation">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>RemoteFamily</title>
 
@@ -29,6 +29,7 @@
       --green: #3a7c5b;
       --amber: #a96a2c;
       --red: #aa4e45;
+      --purple: #75549a;
     }
 
     html {
@@ -367,6 +368,10 @@
       background: #4b6178;
     }
 
+    .project-card.zero .project-number {
+      background: var(--purple);
+    }
+
     .family-footer {
       padding: 2rem 1.5rem;
       border-top: 1px solid #edf0f3;
@@ -459,8 +464,8 @@
       <h1 class="family-title">RemoteFamily</h1>
       <p class="family-subtitle">
         A collection of remote sensing foundation-model projects spanning vision-language pretraining,
-        segmentation-centered perception, robust multimodal reasoning, unified geospatial reasoning, and agentic
-        Earth Observation workflows.
+        segmentation-centered perception, robust multimodal reasoning, unified geospatial reasoning, reasoning with zero
+        labels, and agentic Earth Observation workflows.
       </p>
       <div class="hero-actions">
         <a class="button is-light" href="#projects">
@@ -662,6 +667,43 @@
               <span>Paper</span>
             </a>
             <a class="button is-light" href="https://github.com/SteveJoker404/RemoteShield" target="_blank" rel="noopener noreferrer">
+              <span class="icon"><i class="fab fa-github"></i></span>
+              <span>Code</span>
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <article class="project-card zero">
+        <div class="project-media">
+          <img src="./static/images/RemoteZero/fig1.png"
+               alt="RemoteZero label-free reasoning and self-evolution framework.">
+        </div>
+        <div class="project-body">
+          <div class="project-meta">
+            <span class="project-number">6</span>
+            <span class="project-venue">arXiv 2026</span>
+          </div>
+          <h3 class="project-title">RemoteZero: Geospatial Reasoning with Zero Labels</h3>
+          <p class="project-desc">
+            A label-free reinforcement learning framework that turns crop-level semantic verification into intrinsic
+            rewards and supports continual self-evolution on unlabeled Earth Observation data.
+          </p>
+          <div class="tag-row">
+            <span>Reasoning model</span>
+            <span>Label-free</span>
+            <span>Self-evolution</span>
+          </div>
+          <div class="project-actions">
+            <a class="button is-dark" href="RemoteZero.html">
+              <span class="icon"><i class="fas fa-arrow-right"></i></span>
+              <span>View Page</span>
+            </a>
+            <a class="button is-light" href="https://arxiv.org/pdf/2605.04451">
+              <span class="icon"><i class="fas fa-file-pdf"></i></span>
+              <span>Paper</span>
+            </a>
+            <a class="button is-light" href="https://github.com/1e12Leon/RemoteZero" target="_blank" rel="noopener noreferrer">
               <span class="icon"><i class="fab fa-github"></i></span>
               <span>Code</span>
             </a>
